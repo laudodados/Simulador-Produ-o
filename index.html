@@ -25,9 +25,9 @@
                 <div>
                     <h1 class="text-2xl font-bold text-sky-400 flex items-center gap-2">
                         <span>Simulador de Produção & Dashboard</span>
-                        <span class="text-xs bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded border border-sky-500/30 font-normal">V9.0 Executivo</span>
+                        <span class="text-xs bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded border border-sky-500/30 font-normal">V10.0 Fast-Track</span>
                     </h1>
-                    <p class="text-sm text-slate-400">Análise de Cronoanálise, Setup Contínuo e Impacto Financeiro</p>
+                    <p class="text-sm text-slate-400">Análise de Cronoanálise, Impacto Financeiro e Cálculo Instantâneo</p>
                 </div>
             </div>
             
@@ -46,6 +46,8 @@
                         <option value="20" selected>Vel. 20x</option>
                         <option value="60">Vel. 60x</option>
                         <option value="200">Vel. 200x</option>
+                        <option value="1000">Vel. 1000x</option>
+                        <option value="instant" class="bg-emerald-900 text-emerald-400 font-bold">⚡ Instantâneo</option>
                     </select>
                 </div>
             </div>
@@ -62,7 +64,6 @@
             <div class="lg:col-span-4 flex flex-col gap-6">
                 <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-xl flex flex-col h-[520px]">
                     
-                    <!-- SELEÇÃO DE EQUIPAMENTO (Valores Ocultos) -->
                     <div class="mb-4 border-b border-slate-700/50 pb-4">
                         <label class="text-xs font-bold text-sky-400 uppercase tracking-wider block mb-1">Equipamento Simulado</label>
                         <select id="sel-equipamento" onchange="sincronizarParametrosGlobais()" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm text-slate-200 focus:outline-none focus:border-sky-500">
@@ -140,9 +141,6 @@
                             </div>
                             <div id="area-almoco" class="flex gap-1.5 bg-slate-800 p-1.5 rounded border border-slate-700 min-w-[120px] min-h-[36px] items-center justify-center"></div>
                         </div>
-                        <div class="text-xs text-slate-400 max-w-sm text-right self-end">
-                            *Ao concluir as 50 posições simultâneas, a produção é finalizada e novas numerações assumem os postos.
-                        </div>
                     </div>
                 </div>
             </div>
@@ -196,10 +194,8 @@
     <div id="modal-salvar" class="hidden fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4">
         <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 w-full max-w-md shadow-2xl">
             <h3 class="text-lg font-bold text-sky-400 mb-2 border-b border-slate-700 pb-2">Salvar Resultado da Simulação</h3>
-            <p class="text-xs text-slate-400 mb-4">Dê um nome claro para identificar este cenário nas comparações futuras (ex: "Tempo de contatora reduzido").</p>
-            
+            <p class="text-xs text-slate-400 mb-4">Dê um nome claro para identificar este cenário nas comparações futuras.</p>
             <input type="text" id="input-nome-sim" class="w-full bg-slate-900 border border-slate-600 rounded p-2.5 text-slate-200 mb-4 focus:border-sky-500 focus:outline-none placeholder-slate-600" placeholder="Nome do Cenário...">
-            
             <div class="flex justify-end gap-3">
                 <button onclick="fecharModal()" class="px-4 py-2 rounded text-slate-300 hover:bg-slate-700 transition">Cancelar</button>
                 <button onclick="confirmarSalvar()" class="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-bold transition shadow">Salvar Cenário</button>
@@ -227,7 +223,6 @@
             { idStr: 'Outros', desc: 'Soma das 36 micro-operações', tempoDefault: 398, max: 600 } 
         ];
 
-        // CONSTANTES FINANCEIRAS OCULTAS
         const CUSTO_HORA_HOMEM = 17.18; 
 
         // VARIÁVEIS DE ESTADO
@@ -374,6 +369,13 @@
         }
 
         window.alternarSimulacao = function() {
+            velocidadeSimulacao = document.getElementById('sel-velocidade').value;
+            
+            if (velocidadeSimulacao === 'instant') {
+                executarSimulacaoInstantanea();
+                return;
+            }
+
             if (isRunning) {
                 clearInterval(simInterval);
                 document.getElementById('btn-play').innerText = 'Retomar';
@@ -383,25 +385,36 @@
                 document.getElementById('btn-play').innerText = 'Pausar';
                 document.getElementById('btn-play').className = "bg-amber-600 hover:bg-amber-500 text-white font-bold px-4 py-2 rounded text-sm transition shadow-md";
                 isRunning = true;
-                simInterval = setInterval(executarCicloFabrica, 1000 / 15);
+                simInterval = setInterval(() => passoSimulacaoLogica(parseInt(velocidadeSimulacao) / 15, false), 1000 / 15);
             }
         };
 
-        window.mudarVelocidade = function() { velocidadeSimulacao = parseInt(document.getElementById('sel-velocidade').value); };
+        window.mudarVelocidade = function() { 
+            velocidadeSimulacao = document.getElementById('sel-velocidade').value; 
+            if(velocidadeSimulacao === 'instant' && isRunning) {
+                clearInterval(simInterval);
+                isRunning = false;
+                executarSimulacaoInstantanea();
+            }
+        };
 
-        window.resetarSimulador = function() {
+        window.resetarSimulador = function(silent = false) {
             clearInterval(simInterval);
             isRunning = false;
             tempoFabricaSegundos = 27000;
             document.getElementById('btn-play').innerText = 'Iniciar';
             document.getElementById('btn-play').className = "bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded text-sm";
             document.getElementById('area-almoco').innerHTML = '';
+            
             calcularTempoNormalTotal();
             criarEstruturaDados();
-            renderizarLayoutPlanta();
-            atualizarRelogioUI();
-            atualizarKpisReal();
-            if(!document.getElementById('tab-graficos').classList.contains('hidden')) atualizarGraficosDashboard(); 
+            
+            if (!silent) {
+                renderizarLayoutPlanta();
+                atualizarRelogioUI();
+                atualizarKpisReal();
+                if(!document.getElementById('tab-graficos').classList.contains('hidden')) atualizarGraficosDashboard(); 
+            }
         };
 
         function atualizarRelogioUI() {
@@ -415,32 +428,36 @@
             document.getElementById('kpi-producoes').innerText = producaoAtual;
         }
 
-        function verificarFimDeProducao() {
+        function verificarFimDeProducao(isHeadless) {
             if (postosTrabalho.every(p => p.completo)) {
                 producaoAtual++;
                 postosTrabalho.forEach(p => {
                     p.progresso = 0; p.completo = false; p.sendoTrabalhado = false;
-                    document.getElementById(`ui-posto-bar-${p.id}`).style.width = '0%';
-                    document.getElementById(`ui-posto-${p.id}`).className = "posto-transicao bg-slate-800 border border-slate-700/60 rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner";
-                    document.getElementById(`lbl-posto-${p.id}`).innerText = `P#${String(p.id + (producaoAtual * 50)).padStart(2, '0')}`;
+                    if(!isHeadless) {
+                        document.getElementById(`ui-posto-bar-${p.id}`).style.width = '0%';
+                        document.getElementById(`ui-posto-${p.id}`).className = "posto-transicao bg-slate-800 border border-slate-700/60 rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner";
+                        document.getElementById(`lbl-posto-${p.id}`).innerText = `P#${String(p.id + (producaoAtual * 50)).padStart(2, '0')}`;
+                    }
                 });
-                atualizarKpisReal();
+                if(!isHeadless) atualizarKpisReal();
             }
         }
 
-        function executarCicloFabrica() {
-            const deltaSegundos = velocidadeSimulacao / 15;
+        function passoSimulacaoLogica(deltaSegundos, isHeadless = false) {
             tempoFabricaSegundos += deltaSegundos;
 
             if (tempoFabricaSegundos >= fimTurnoSegundos) {
                 tempoFabricaSegundos = fimTurnoSegundos;
-                clearInterval(simInterval);
-                isRunning = false;
-                document.getElementById('btn-play').innerText = 'Fim de Turno';
-                document.getElementById('btn-play').className = "bg-slate-600 text-slate-400 font-bold px-4 py-2 rounded text-sm cursor-not-allowed";
+                if (!isHeadless) {
+                    clearInterval(simInterval);
+                    isRunning = false;
+                    document.getElementById('btn-play').innerText = 'Fim de Turno';
+                    document.getElementById('btn-play').className = "bg-slate-600 text-slate-400 font-bold px-4 py-2 rounded text-sm cursor-not-allowed";
+                }
             }
 
-            atualizarRelogioUI();
+            if(!isHeadless) atualizarRelogioUI();
+            
             const tempoPadraoSegundosUnidade = tempoNormalCalculado * 1.12; 
             const horaAtualFloat = tempoFabricaSegundos / 3600;
             
@@ -453,14 +470,14 @@
                     if (w.status !== 'Almoço') {
                         if (w.postoAlvo !== null) { postosTrabalho[w.postoAlvo - 1].sendoTrabalhado = false; w.postoAlvo = null; }
                         w.status = 'Almoço';
-                        atualizarVisualAgente(w);
+                        if(!isHeadless) atualizarVisualAgente(w);
                     }
                     return;
                 } else if (w.status === 'Almoço') w.status = 'Ocioso'; 
 
                 if (w.status === 'Ocioso' || w.postoAlvo === null) {
                     const postoLivre = postosTrabalho.find(p => !p.completo && !p.sendoTrabalhado);
-                    if (postoLivre) { w.postoAlvo = postoLivre.id; w.status = 'Trabalhando'; postoLivre.sendoTrabalhado = true; atualizarVisualAgente(w); }
+                    if (postoLivre) { w.postoAlvo = postoLivre.id; w.status = 'Trabalhando'; postoLivre.sendoTrabalhado = true; if(!isHeadless) atualizarVisualAgente(w); }
                 }
 
                 if (w.status === 'Trabalhando' && w.postoAlvo !== null) {
@@ -474,11 +491,14 @@
                         const horaIndex = Math.min(Math.floor((tempoFabricaSegundos - 27000) / 3600), 10);
                         if(horaIndex >= 0 && horaIndex <= 10) dadosProducaoHora[horaIndex]++;
                         
-                        atualizarKpisReal(); verificarFimDeProducao(); 
-                        if(!document.getElementById('tab-graficos').classList.contains('hidden') && chartTendencia) atualizarGraficosDashboard();
+                        verificarFimDeProducao(isHeadless); 
+                        if(!isHeadless) {
+                            atualizarKpisReal();
+                            if(!document.getElementById('tab-graficos').classList.contains('hidden') && chartTendencia) atualizarGraficosDashboard();
+                        }
                     }
                     
-                    if(document.getElementById(`ui-posto-bar-${posto.id}`)) {
+                    if(!isHeadless && document.getElementById(`ui-posto-bar-${posto.id}`)) {
                         document.getElementById(`ui-posto-bar-${posto.id}`).style.width = posto.progresso + '%';
                         const uiPostoBox = document.getElementById(`ui-posto-${posto.id}`);
                         if (posto.completo) uiPostoBox.className = "posto-transicao bg-emerald-950/40 border-emerald-500 rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner border";
@@ -486,6 +506,32 @@
                     }
                 }
             });
+        }
+
+        function executarSimulacaoInstantanea() {
+            resetarSimulador(true); // Reset silencioso sem travar a UI
+            
+            // Simula o turno inteiro (36.000 segundos) com saltos lógicos de 5 em 5 segundos para performance
+            while (tempoFabricaSegundos < fimTurnoSegundos) {
+                passoSimulacaoLogica(5, true); 
+            }
+
+            // Ao terminar a matemática fantasma, cospe tudo na tela de uma vez só
+            document.getElementById('btn-play').innerText = 'Fim de Turno';
+            document.getElementById('btn-play').className = "bg-slate-600 text-slate-400 font-bold px-4 py-2 rounded text-sm cursor-not-allowed";
+            
+            renderizarLayoutPlanta();
+            
+            // Força a atualização visual dos trabalhadores onde eles pararam
+            document.getElementById('area-almoco').innerHTML = '';
+            colaboradores.forEach(w => atualizarVisualAgente(w));
+            
+            atualizarRelogioUI();
+            atualizarKpisReal();
+            
+            if(!document.getElementById('tab-graficos').classList.contains('hidden')) {
+                atualizarGraficosDashboard();
+            }
         }
 
         function atualizarVisualAgente(worker) {
@@ -513,9 +559,7 @@
             document.getElementById('input-nome-sim').focus();
         };
 
-        window.fecharModal = function() {
-            document.getElementById('modal-salvar').classList.add('hidden');
-        };
+        window.fecharModal = function() { document.getElementById('modal-salvar').classList.add('hidden'); };
 
         window.confirmarSalvar = function() {
             const nome = document.getElementById('input-nome-sim').value || `Simulação ${simulacoesSalvas.length + 1}`;
@@ -550,7 +594,7 @@
             simulacoesSalvas.push(snapshot);
             atualizarDropdownsComparacao();
             fecharModal();
-            alert(`Cenário "${nome}" salvo com sucesso! Vá na aba de Dashboard para comparar os impactos.`);
+            alert(`Cenário "${nome}" salvo com sucesso!`);
         };
 
         function atualizarDropdownsComparacao() {
@@ -596,10 +640,7 @@
             }
         }
 
-        function formatPercent(value) {
-            const signal = value > 0 ? '+' : '';
-            return `${signal}${value.toFixed(1)}%`;
-        }
+        function formatPercent(value) { return `${value > 0 ? '+' : ''}${value.toFixed(1)}%`; }
 
         window.atualizarGraficosDashboard = function() {
             const ctxTrend = document.getElementById('chart-tendencia').getContext('2d');
@@ -629,15 +670,9 @@
                 datasetsTrend.push({ label: `${cen2.nome} (Meta)`, data: meta2, borderColor: '#b45309', borderDash: [5, 5], tension: 0, fill: false });
             }
 
-            if (chartTendencia) {
-                chartTendencia.data.datasets = datasetsTrend;
-                chartTendencia.update();
-            } else {
-                chartTendencia = new Chart(ctxTrend, {
-                    type: 'line',
-                    data: { labels: labelsHoras, datasets: datasetsTrend },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Curva Cumulativa de Produção', color: '#f1f5f9' }, legend: { labels: { color: '#94a3b8' } } }, scales: { x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } } }
-                });
+            if (chartTendencia) { chartTendencia.data.datasets = datasetsTrend; chartTendencia.update(); } 
+            else {
+                chartTendencia = new Chart(ctxTrend, { type: 'line', data: { labels: labelsHoras, datasets: datasetsTrend }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Curva Cumulativa de Produção', color: '#f1f5f9' }, legend: { labels: { color: '#94a3b8' } } }, scales: { x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } } } });
             }
 
             // 2. DADOS PARETO (GARGALOS)
@@ -646,26 +681,16 @@
             let datasetsPareto = [{ label: cen1.nome, data: top5Cen1.map(t => t.tempo), backgroundColor: '#38bdf8' }];
 
             if (cen2) {
-                let dataCen2 = labelsPareto.map(nome => {
-                    let achado = cen2.tempos.find(t => t.nome === nome);
-                    return achado ? achado.tempo : 0;
-                });
+                let dataCen2 = labelsPareto.map(nome => { let achado = cen2.tempos.find(t => t.nome === nome); return achado ? achado.tempo : 0; });
                 datasetsPareto.push({ label: cen2.nome, data: dataCen2, backgroundColor: '#fbbf24' });
             }
             
-            if(chartGargalos) {
-                chartGargalos.data.labels = labelsPareto;
-                chartGargalos.data.datasets = datasetsPareto;
-                chartGargalos.update();
-            } else {
-                chartGargalos = new Chart(ctxGargalos, {
-                    type: 'bar',
-                    data: { labels: labelsPareto, datasets: datasetsPareto },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Comparativo Top 5 Gargalos (Segundos)', color: '#f1f5f9' }, legend: { labels: { color: '#94a3b8' } } }, scales: { x: { ticks: { color: '#94a3b8', font: {size: 10} }, grid: { display: false } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } } }
-                });
+            if(chartGargalos) { chartGargalos.data.labels = labelsPareto; chartGargalos.data.datasets = datasetsPareto; chartGargalos.update(); } 
+            else {
+                chartGargalos = new Chart(ctxGargalos, { type: 'bar', data: { labels: labelsPareto, datasets: datasetsPareto }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Comparativo Top 5 Gargalos (Segundos)', color: '#f1f5f9' }, legend: { labels: { color: '#94a3b8' } } }, scales: { x: { ticks: { color: '#94a3b8', font: {size: 10} }, grid: { display: false } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } } } });
             }
 
-            // 3. FINANCEIRO E COMPARATIVO (VISÃO EXECUTIVA - VALORES FINAIS E DELTAS)
+            // 3. FINANCEIRO
             const finContainer = document.getElementById('fin-container');
             if (cen2) {
                 const diffCusto = cen2.custoMo - cen1.custoMo;
@@ -684,28 +709,24 @@
                         <span class="text-amber-400 font-bold w-1/4 text-center">${cen2.nome}</span>
                         <span class="text-slate-300 font-bold w-1/4 text-right">Variação (%)</span>
                     </div>
-                    
                     <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2 text-xs">
                         <span class="text-slate-400 w-1/4">Vol. Produzido</span>
                         <span class="text-slate-300 w-1/4 text-center">${cen1.totalProduzido} un</span>
                         <span class="text-slate-300 w-1/4 text-center">${cen2.totalProduzido} un</span>
                         <span class="w-1/4 text-right font-mono font-bold ${percProd >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${formatPercent(percProd)}</span>
                     </div>
-
                     <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2 text-xs">
                         <span class="text-slate-400 w-1/4">Custo Total M.O.</span>
                         <span class="text-slate-300 w-1/4 text-center">R$ ${cen1.custoMo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
                         <span class="text-slate-300 w-1/4 text-center">R$ ${cen2.custoMo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
                         <span class="w-1/4 text-right font-mono font-bold ${percCusto <= 0 ? 'text-emerald-400' : 'text-rose-400'}">${formatPercent(percCusto)}</span>
                     </div>
-                    
                     <div class="flex justify-between items-center pb-2 text-xs">
                         <span class="text-slate-400 w-1/4">Valor Total Prod.</span>
                         <span class="text-slate-300 w-1/4 text-center">R$ ${cen1.fat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
                         <span class="text-slate-300 w-1/4 text-center">R$ ${cen2.fat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
                         <span class="w-1/4 text-right font-mono font-bold ${percFat >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${formatPercent(percFat)}</span>
                     </div>
-                    
                     <div class="mt-2 pt-2 border-t border-slate-700 flex justify-between items-center text-xs p-2 rounded ${diffFat >= 0 ? 'bg-emerald-900/30 border border-emerald-800/50' : 'bg-rose-900/30 border border-rose-800/50'}">
                         <strong class="${diffFat >= 0 ? 'text-emerald-400' : 'text-rose-400'}">Impacto Financeiro Final (Diferença em R$):</strong>
                         <span class="font-mono font-bold text-sm ${diffFat >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${diffFat > 0 ? '+' : ''} R$ ${diffFat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
@@ -729,7 +750,6 @@
             }
         }
 
-        // INICIALIZAÇÃO DA DOM
         document.addEventListener('DOMContentLoaded', () => {
             inicializarPainelTarefas();
             resetarSimulador();
