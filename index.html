@@ -206,59 +206,59 @@
     <script>
         // BASE DE DADOS DO PSS
         const dbTarefasPSS = [
-            { idStr: '22', desc: 'Fechamento elétr. resist.', tempoDefault: 363, max: 600 },
+            { idStr: '1', desc: 'Leitura da OS e separação inicial', tempoDefault: 15, max: 60 },
+            { idStr: '2', desc: 'Posicionar chassi na bancada', tempoDefault: 10, max: 60 },
+            { idStr: '3', desc: 'Parafusar pés de borracha', tempoDefault: 12, max: 60 },
+            { idStr: '4', desc: 'Encaixar painel traseiro', tempoDefault: 8, max: 60 },
+            { idStr: '5', desc: 'Colocar base do reservatório', tempoDefault: 11, max: 60 },
+            { idStr: '6', desc: 'Fixar reservatório e terra', tempoDefault: 44, max: 100 },
+            { idStr: '7', desc: 'Inserir anel de vedação', tempoDefault: 9, max: 60 },
+            { idStr: '8', desc: 'Colocar resistência no reservatório', tempoDefault: 14, max: 60 },
+            { idStr: '9', desc: 'Apertar flange da resistência', tempoDefault: 16, max: 60 },
+            { idStr: '10', desc: 'Montar válvula de alívio', tempoDefault: 12, max: 60 },
+            { idStr: '11', desc: 'Conectar mangueira de dreno', tempoDefault: 10, max: 60 },
+            { idStr: '12', desc: 'Apertar abraçadeiras do dreno', tempoDefault: 8, max: 60 },
+            { idStr: '13', desc: 'Montar tubo de entrada de água', tempoDefault: 11, max: 60 },
+            { idStr: '14', desc: 'Instalar boia de nível', tempoDefault: 15, max: 60 },
+            { idStr: '15', desc: 'Apertar porca da boia', tempoDefault: 9, max: 60 },
+            { idStr: '16', desc: 'Encaixar painel frontal', tempoDefault: 8, max: 60 },
+            { idStr: '17', desc: 'Passar chicote principal', tempoDefault: 13, max: 60 },
+            { idStr: '18', desc: 'Conectar terra do chassi', tempoDefault: 10, max: 60 },
+            { idStr: '19', desc: 'Posicionar trilho DIN', tempoDefault: 9, max: 60 },
             { idStr: '20', desc: 'Preparação do contator', tempoDefault: 338, max: 600 },
-            { idStr: '35', desc: 'Fechamento elétrico reserv/gab.', tempoDefault: 199, max: 300 },
-            { idStr: '49', desc: 'Montar o palete', tempoDefault: 141, max: 250 },
-            { idStr: '39', desc: 'Parafusar tampa do gabinete', tempoDefault: 113, max: 200 },
-            { idStr: '23', desc: 'Decapar cabos resistência', tempoDefault: 100, max: 180 },
-            { idStr: '49.5', desc: 'Puxar o pallet', tempoDefault: 91, max: 150 },
-            { idStr: '35.5', desc: 'Crimpar luvas no fechamento', tempoDefault: 59, max: 100 },
-            { idStr: '36', desc: 'Realizar teste elétrico', tempoDefault: 58, max: 100 },
-            { idStr: '37', desc: 'Passar cabos e encaixar tampa', tempoDefault: 54, max: 100 },
-            { idStr: '6', desc: 'Fixar reservatório e terra', tempoDefault: 44, max: 80 },
-            { idStr: '26', desc: 'Ligar resistência ao contator', tempoDefault: 36, max: 70 },
-            { idStr: '27', desc: 'Verificar torque contatores', tempoDefault: 35, max: 70 },
-            { idStr: '28', desc: 'Amarração dos cabos', tempoDefault: 34, max: 70 },
-            { idStr: 'Outros', desc: 'Soma das 36 micro-operações', tempoDefault: 398, max: 600 } 
+            { idStr: '21', desc: 'Fixar contator no trilho', tempoDefault: 12, max: 60 },
+            { idStr: '22', desc: 'Fechamento elétr. resist.', tempoDefault: 363, max: 600 },
+            { idStr: '23', desc: 'Decapar cabos resistência', tempoDefault: 100, max: 200 },
+            { idStr: '24', desc: 'Isolar pontas de cabos', tempoDefault: 14, max: 60 },
+            { idStr: '25', desc: 'Passar cabos pela prensa-cabo', tempoDefault: 11, max: 60 },
+            { idStr: '26', desc: 'Ligar resistência ao contator', tempoDefault: 36, max: 100 },
+            { idStr: '27', desc: 'Verificar torque contatores', tempoDefault: 35, max: 100 },
+            { idStr: '28', desc: 'Amarração dos cabos', tempoDefault: 34, max: 100 },
+            { idStr: '29', desc: 'Apertar bornes do painel', tempoDefault: 13, max: 60 },
+            { idStr: '30', desc: 'Conectar termostato', tempoDefault: 12, max: 60 },
+            { idStr: '31', desc: 'Fixar sensor de temperatura', tempoDefault: 10, max: 60 },
+            { idStr: '32', desc: 'Conectar placa de controle', tempoDefault: 14, max: 60 },
+            { idStr: '33', desc: 'Crimpar luvas no fechamento', tempoDefault: 59, max: 150 },
+            { idStr: '34', desc: 'Conectar botões no painel', tempoDefault: 11, max: 60 },
+            { idStr: '35', desc: 'Fechamento elétrico reserv/gab.', tempoDefault: 199, max: 400 },
+            { idStr: '36', desc: 'Revisão do circuito elétrico', tempoDefault: 10, max: 60 },
+            { idStr: '37', desc: 'Passar cabos e encaixar tampa', tempoDefault: 54, max: 150 },
+            { idStr: '38', desc: 'Fixar cabos com presilhas', tempoDefault: 9, max: 60 },
+            { idStr: '39', desc: 'Parafusar tampa do gabinete', tempoDefault: 113, max: 250 },
+            { idStr: '40', desc: 'Colocar adesivos de segurança', tempoDefault: 12, max: 60 },
+            { idStr: '41', desc: 'Limpeza interna do equipamento', tempoDefault: 10, max: 60 },
+            { idStr: '42', desc: 'Verificação visual dos contatos', tempoDefault: 8, max: 60 },
+            { idStr: '43', desc: 'Colocar painel de comandos', tempoDefault: 11, max: 60 },
+            { idStr: '44', desc: 'Ligar equipamento na tomada', tempoDefault: 10, max: 60 },
+            { idStr: '45', desc: 'Realizar teste elétrico', tempoDefault: 58, max: 150 },
+            { idStr: '46', desc: 'Remover lacres e revisar', tempoDefault: 10, max: 60 },
+            { idStr: '47', desc: 'Limpeza externa do gabinete', tempoDefault: 10, max: 60 },
+            { idStr: '48', desc: 'Embalar com plástico bolha', tempoDefault: 18, max: 80 },
+            { idStr: '49', desc: 'Montar o palete', tempoDefault: 141, max: 300 },
+            { idStr: '50', desc: 'Puxar o pallet', tempoDefault: 91, max: 200 }
         ];
 
-        const CUSTO_HORA_HOMEM = 17.18; 
-
-        // VARIÁVEIS DE ESTADO
-        let simInterval = null;
-        let isRunning = false;
-        let velocidadeSimulacao = 20; 
-        let tempoFabricaSegundos = 27000; 
-        const fimTurnoSegundos = 63000;    
-        
-        let tempoNormalCalculado = 2063;
-        let totalWorkers = 6;
-        let producaoAtual = 0; 
-        let totalProduzido = 0;
-        let dadosProducaoHora = Array(11).fill(0);
-        
-        let postosTrabalho = [];
-        let colaboradores = [];
-
-        let simulacoesSalvas = [];
-        let chartTendencia = null;
-        let chartGargalos = null;
-
-        window.mudarAba = function(idAba) {
-            document.getElementById('tab-simulador').classList.add('hidden');
-            document.getElementById('tab-graficos').classList.add('hidden');
-            
-            document.getElementById('btn-tab-sim').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200";
-            document.getElementById('btn-tab-grf').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200";
-
-            document.getElementById(idAba).classList.remove('hidden');
-            
-            if(idAba === 'tab-simulador') {
-                document.getElementById('btn-tab-sim').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40";
-            } else {
-                document.getElementById('btn-tab-grf').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40";
-                atualizarGraficosDashboard();
+        // CONSTANTES FINANCEIRAS OCULTAS
             }
         };
 
