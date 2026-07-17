@@ -206,6 +206,768 @@
     <script>
         // BASE DE DADOS DO PSS
         const dbTarefasPSS = [
+            { idStr: '1', desc: 'Retirar o conjunto gabinete da caixa', tempoDefault: 11, max: 60 },
+            { idStr: '2', desc: 'Dispor a base sobre a bancada', tempoDefault: 11, max: 60 },
+            { idStr: '3', desc: 'Segregar a tampa', tempoDefault: 11, max: 60 },
+            { idStr: '4', desc: 'Furar a tampa', tempoDefault: 11, max: 60 },
+            { idStr: '5', desc: 'Segregar o gabinete', tempoDefault: 11, max: 60 },
+            { idStr: '6', desc: 'Etiquetar e adesivar gabinete', tempoDefault: 11, max: 60 },
+            { idStr: '7', desc: 'Colocar os reservatórios sobre a base', tempoDefault: 11, max: 60 },
+            { idStr: '8', desc: 'Fixar o reservatório e o terra na base', tempoDefault: 44, max: 100 },
+            { idStr: '9', desc: 'Colocar adesivo de identificação de terra', tempoDefault: 11, max: 60 },
+            { idStr: '10', desc: 'Colocar torneira de boia na caixa de boia', tempoDefault: 10, max: 60 },
+            { idStr: '11', desc: 'Fixar boia no reservatório', tempoDefault: 10, max: 60 },
+            { idStr: '12', desc: 'Regular a Boia', tempoDefault: 10, max: 60 },
+            { idStr: '13', desc: 'Marcar caixa de boia para furo do sensor de nível', tempoDefault: 10, max: 60 },
+            { idStr: '14', desc: 'Furar caixa de boia', tempoDefault: 10, max: 60 },
+            { idStr: '15', desc: 'Colocar o sensor de nível', tempoDefault: 10, max: 60 },
+            { idStr: '16', desc: 'Dar aperto no sensor de nível', tempoDefault: 10, max: 60 },
+            { idStr: '17', desc: 'Preparação do contator (descrever melhor o processo)', tempoDefault: 338, max: 600 },
+            { idStr: '18', desc: 'Fazer fechamento elétrico da resistência', tempoDefault: 363, max: 600 },
+            { idStr: '19', desc: 'Decapar cabos da resistência e colocar os terminais', tempoDefault: 100, max: 200 },
+            { idStr: '20', desc: 'Colocar tampa do reservatório', tempoDefault: 10, max: 60 },
+            { idStr: '21', desc: 'Fixar contator', tempoDefault: 10, max: 60 },
+            { idStr: '22', desc: 'Ligar resistência ao contator', tempoDefault: 36, max: 100 },
+            { idStr: '23', desc: 'Verificar o torque dos contatores', tempoDefault: 35, max: 100 },
+            { idStr: '24', desc: 'Fazer a amarração dos cabos', tempoDefault: 34, max: 100 },
+            { idStr: '25', desc: 'Colar a etiqueta de numero de série', tempoDefault: 10, max: 60 },
+            { idStr: '26', desc: 'Colar o cano de entrada d’água', tempoDefault: 10, max: 60 },
+            { idStr: '27', desc: 'Limpar os espaços da base', tempoDefault: 10, max: 60 },
+            { idStr: '28', desc: 'Encaixar os gabinetes', tempoDefault: 10, max: 60 },
+            { idStr: '29', desc: 'Fixar os gabinetes', tempoDefault: 10, max: 60 },
+            { idStr: '30', desc: 'Fazer o fechamento elétrico entre o reservatório e o gabinete', tempoDefault: 199, max: 400 },
+            { idStr: '31', desc: 'Crimpar luvas no fechamento elétrico', tempoDefault: 59, max: 150 },
+            { idStr: '32', desc: 'Arrumar e prender os cabos', tempoDefault: 10, max: 60 },
+            { idStr: '33', desc: 'Realizar o teste elétrico', tempoDefault: 58, max: 150 },
+            { idStr: '34', desc: 'Passar os cabos  e encaixar tampa', tempoDefault: 54, max: 150 },
+            { idStr: '35', desc: 'Passar fita térmica', tempoDefault: 10, max: 60 },
+            { idStr: '36', desc: 'Parafusar a tampa do gabinete', tempoDefault: 113, max: 250 },
+            { idStr: '37', desc: 'Identificar o equipamento com a etiqueta de potência', tempoDefault: 10, max: 60 },
+            { idStr: '38', desc: 'Colar as outras etiquetas de acabamento', tempoDefault: 10, max: 60 },
+            { idStr: '39', desc: 'Colar etiqueta saída de vapor', tempoDefault: 10, max: 60 },
+            { idStr: '40', desc: 'Limpar os equipamentos', tempoDefault: 10, max: 60 },
+            { idStr: '41', desc: 'Dobrar mangueira', tempoDefault: 10, max: 60 },
+            { idStr: '42', desc: 'Colocar mangueira sobre o equipamento', tempoDefault: 10, max: 60 },
+            { idStr: '43', desc: 'Colocar manual sobre o equipamento', tempoDefault: 10, max: 60 },
+            { idStr: '44', desc: 'Colocar caixa sobre o equipamento', tempoDefault: 10, max: 60 },
+            { idStr: '45', desc: 'Identificar as caixas', tempoDefault: 10, max: 60 },
+            { idStr: '46', desc: 'Verificar os números de série', tempoDefault: 10, max: 60 },
+            { idStr: '47', desc: 'Aguardar a chegada da qualidade', tempoDefault: 10, max: 60 },
+            { idStr: '48', desc: 'Aguarda a liberação da qualidade', tempoDefault: 10, max: 60 },
+            { idStr: '49', desc: 'Embalar o equipamentos', tempoDefault: 10, max: 60 },
+            { idStr: '50', desc: 'Passar fita gomada', tempoDefault: 10, max: 60 },
+            { idStr: '51', desc: 'Montar o palete', tempoDefault: 141, max: 300 },
+            { idStr: '52', desc: 'Puxar o pallet', tempoDefault: 91, max: 200 },
+            { idStr: '53', desc: 'Solicitar nota fiscal', tempoDefault: 10, max: 60 }
+        ];
+
+        // CONSTANTES FINANCEIRAS OCULTAS
+        const CUSTO_HORA_HOMEM = 17.18; 
+
+        // VARIÁVEIS DE ESTADO
+        let simInterval = null;
+        let isRunning = false;
+        let velocidadeSimulacao = 20; 
+        let tempoFabricaSegundos = 27000; 
+        const fimTurnoSegundos = 63000;    
+        
+        let tempoNormalCalculado = 2063;
+        let totalWorkers = 6;
+        let producaoAtual = 0; 
+        let totalProduzido = 0;
+        let dadosProducaoHora = Array(11).fill(0);
+        
+        let postosTrabalho = [];
+        let colaboradores = [];
+
+        let simulacoesSalvas = [];
+        let chartTendencia = null;
+        let chartGargalos = null;
+
+        window.mudarAba = function(idAba) {
+            document.getElementById('tab-simulador').classList.add('hidden');
+            document.getElementById('tab-graficos').classList.add('hidden');
+            
+            document.getElementById('btn-tab-sim').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+            document.getElementById('btn-tab-grf').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+
+            document.getElementById(idAba).classList.remove('hidden');
+            
+            if(idAba === 'tab-simulador') {
+                document.getElementById('btn-tab-sim').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40";
+            } else {
+                document.getElementById('btn-tab-grf').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40";
+                atualizarGraficosDashboard();
+            }
+        };
+
+        function inicializarPainelTarefas() {
+            const container = document.getElementById('lista-tarefas');
+            container.innerHTML = '';
+            dbTarefasPSS.forEach((tarefa, idx) => {
+                const stepHTML = `
+                    <div class="bg-slate-900/50 p-2 rounded border border-slate-700/50">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300 truncate w-4/5" title="${tarefa.desc}">${tarefa.idStr === 'Outros' ? '' : `Etapa ${tarefa.idStr}: `}${tarefa.desc}</span>
+                            <span id="lbl-task-${idx}" class="font-mono text-amber-400 font-bold">${tarefa.tempoDefault}s</span>
+                        </div>
+                        <input type="range" id="input-task-${idx}" min="10" max="${tarefa.max}" value="${tarefa.tempoDefault}" 
+                            oninput="atualizarTempoTarefa(${idx})" class="w-full h-1 bg-slate-700 rounded-lg appearance-none accent-sky-500 cursor-pointer">
+                    </div>
+                `;
+                container.innerHTML += stepHTML;
+            });
+            calcularTempoNormalTotal();
+        }
+
+        window.atualizarTempoTarefa = function(idx) {
+            const novoValor = parseInt(document.getElementById(`input-task-${idx}`).value);
+            document.getElementById(`lbl-task-${idx}`).innerText = novoValor + 's';
+            calcularTempoNormalTotal();
+            if(!document.getElementById('tab-graficos').classList.contains('hidden') && document.getElementById('sel-cenario-1').value === 'current') {
+                atualizarGraficosDashboard(); 
+            }
+        };
+
+        function calcularTempoNormalTotal() {
+            let total = 0;
+            dbTarefasPSS.forEach((_, idx) => {
+                total += parseInt(document.getElementById(`input-task-${idx}`).value);
+            });
+            tempoNormalCalculado = total;
+            
+            const tempoNormalMin = total / 60;
+            const tempoPadraoMin = tempoNormalMin * 1.12;
+            const tempoDisponivelTotalEquipe = totalWorkers * 9 * 60;
+            const capDia = tempoDisponivelTotalEquipe / tempoPadraoMin;
+            
+            document.getElementById('kpi-tp').innerText = tempoPadraoMin.toFixed(2) + ' min';
+            document.getElementById('kpi-cap-dia').innerText = Math.floor(capDia) + ' un/dia';
+            
+            return { tempoPadraoMin, capDia };
+        }
+
+        window.sincronizarParametrosGlobais = function() {
+            const prevWorkers = totalWorkers;
+            totalWorkers = parseInt(document.getElementById('param-workers').value);
+            document.getElementById('lbl-workers').innerText = totalWorkers + ' op.';
+            calcularTempoNormalTotal(); 
+
+            if (prevWorkers !== totalWorkers && !isRunning) resetarSimulador();
+            if(!document.getElementById('tab-graficos').classList.contains('hidden') && document.getElementById('sel-cenario-1').value === 'current') {
+                atualizarGraficosDashboard(); 
+            }
+        };
+
+        window.restaurarCronoanalise = function() {
+            dbTarefasPSS.forEach((tarefa, idx) => {
+                const input = document.getElementById(`input-task-${idx}`);
+                if(input) {
+                    input.value = tarefa.tempoDefault;
+                    document.getElementById(`lbl-task-${idx}`).innerText = tarefa.tempoDefault + 's';
+                }
+            });
+            document.getElementById('param-workers').value = 6;
+            sincronizarParametrosGlobais();
+        };
+
+        function criarEstruturaDados() {
+            postosTrabalho = [];
+            for (let i = 1; i <= 50; i++) postosTrabalho.push({ id: i, progresso: 0, completo: false, sendoTrabalhado: false });
+            colaboradores = [];
+            for (let w = 1; w <= totalWorkers; w++) {
+                colaboradores.push({
+                    id: w, nome: 'Funcionário ' + w, sigla: 'F' + w, status: 'Ocioso', postoAlvo: null, 
+                    cor: ['bg-sky-400', 'bg-emerald-400', 'bg-amber-400', 'bg-fuchsia-400', 'bg-indigo-400', 'bg-rose-400'][(w - 1) % 6] || 'bg-slate-400'
+                });
+            }
+            producaoAtual = 0;
+            totalProduzido = 0;
+            dadosProducaoHora = Array(11).fill(0);
+        }
+
+        function renderizarLayoutPlanta() {
+            const container = document.getElementById('grid-layout-fabrica');
+            container.innerHTML = '';
+            postosTrabalho.forEach(p => {
+                const numDisplay = p.id + (producaoAtual * 50);
+                const box = document.createElement('div');
+                box.id = `ui-posto-${p.id}`;
+                let bgState = p.completo ? 'bg-emerald-950/40 border-emerald-500/50' : (p.progresso > 0 ? 'bg-sky-950/30 border-sky-500/40' : 'bg-slate-800');
+                box.className = `posto-transicao ${bgState} border rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner`;
+                box.innerHTML = `
+                    <div class="flex justify-between items-center z-10">
+                        <span id="lbl-posto-${p.id}" class="text-[10px] font-bold text-slate-500 font-mono">P#${String(numDisplay).padStart(2, '0')}</span>
+                        <div id="ui-posto-workers-${p.id}" class="flex gap-0.5"></div>
+                    </div>
+                    <div class="w-full bg-slate-900/80 rounded-full h-1 z-10 overflow-hidden">
+                        <div id="ui-posto-bar-${p.id}" class="bg-sky-400 h-1 transition-all" style="width: ${p.progresso}%"></div>
+                    </div>`;
+                container.appendChild(box);
+            });
+        }
+
+        window.alternarSimulacao = function() {
+            velocidadeSimulacao = document.getElementById('sel-velocidade').value;
+            
+            if (velocidadeSimulacao === 'instant') {
+                executarSimulacaoInstantanea();
+                return;
+            }
+
+            if (isRunning) {
+                clearInterval(simInterval);
+                document.getElementById('btn-play').innerText = 'Retomar';
+                document.getElementById('btn-play').className = "bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded text-sm transition shadow-md";
+                isRunning = false;
+            } else {
+                document.getElementById('btn-play').innerText = 'Pausar';
+                document.getElementById('btn-play').className = "bg-amber-600 hover:bg-amber-500 text-white font-bold px-4 py-2 rounded text-sm transition shadow-md";
+                isRunning = true;
+                simInterval = setInterval(() => passoSimulacaoLogica(parseInt(velocidadeSimulacao) / 15, false), 1000 / 15);
+            }
+        };
+
+        window.mudarVelocidade = function() { 
+            velocidadeSimulacao = document.getElementById('sel-velocidade').value; 
+            if(velocidadeSimulacao === 'instant' && isRunning) {
+                clearInterval(simInterval);
+                isRunning = false;
+                executarSimulacaoInstantanea();
+            }
+        };
+
+        window.resetarSimulador = function(silent = false) {
+            clearInterval(simInterval);
+            isRunning = false;
+            tempoFabricaSegundos = 27000;
+            document.getElementById('btn-play').innerText = 'Iniciar';
+            document.getElementById('btn-play').className = "bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded text-sm";
+            document.getElementById('area-almoco').innerHTML = '';
+            
+            calcularTempoNormalTotal();
+            criarEstruturaDados();
+            
+            if (!silent) {
+                renderizarLayoutPlanta();
+                atualizarRelogioUI();
+                atualizarKpisReal();
+                if(!document.getElementById('tab-graficos').classList.contains('hidden')) atualizarGraficosDashboard(); 
+            }
+        };
+
+        function atualizarRelogioUI() {
+            const horas = Math.floor(tempoFabricaSegundos / 3600);
+            const minutos = Math.floor((tempoFabricaSegundos % 3600) / 60);
+            document.getElementById('txt-relogio').innerText = String(horas).padStart(2, '0') + ':' + String(minutos).padStart(2, '0');
+        }
+
+        function atualizarKpisReal() {
+            document.getElementById('kpi-prod-real').innerText = totalProduzido + ' un';
+            document.getElementById('kpi-producoes').innerText = producaoAtual;
+        }
+
+        function verificarFimDeProducao(isHeadless) {
+            if (postosTrabalho.every(p => p.completo)) {
+                producaoAtual++;
+                postosTrabalho.forEach(p => {
+                    p.progresso = 0; p.completo = false; p.sendoTrabalhado = false;
+                    if(!isHeadless) {
+                        document.getElementById(`ui-posto-bar-${p.id}`).style.width = '0%';
+                        document.getElementById(`ui-posto-${p.id}`).className = "posto-transicao bg-slate-800 border border-slate-700/60 rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner";
+                        document.getElementById(`lbl-posto-${p.id}`).innerText = `P#${String(p.id + (producaoAtual * 50)).padStart(2, '0')}`;
+                    }
+                });
+                if(!isHeadless) atualizarKpisReal();
+            }
+        }
+
+        function passoSimulacaoLogica(deltaSegundos, isHeadless = false) {
+            tempoFabricaSegundos += deltaSegundos;
+
+            if (tempoFabricaSegundos >= fimTurnoSegundos) {
+                tempoFabricaSegundos = fimTurnoSegundos;
+                if (!isHeadless) {
+                    clearInterval(simInterval);
+                    isRunning = false;
+                    document.getElementById('btn-play').innerText = 'Fim de Turno';
+                    document.getElementById('btn-play').className = "bg-slate-600 text-slate-400 font-bold px-4 py-2 rounded text-sm cursor-not-allowed";
+                }
+            }
+
+            if(!isHeadless) atualizarRelogioUI();
+            
+            const tempoPadraoSegundosUnidade = tempoNormalCalculado * 1.12; 
+            const horaAtualFloat = tempoFabricaSegundos / 3600;
+            
+            colaboradores.forEach(w => {
+                let emAlmoco = false;
+                if (w.id % 2 !== 0 && horaAtualFloat >= 12 && horaAtualFloat < 13) emAlmoco = true;
+                if (w.id % 2 === 0 && horaAtualFloat >= 13 && horaAtualFloat < 14) emAlmoco = true;
+
+                if (emAlmoco) {
+                    if (w.status !== 'Almoço') {
+                        if (w.postoAlvo !== null) { postosTrabalho[w.postoAlvo - 1].sendoTrabalhado = false; w.postoAlvo = null; }
+                        w.status = 'Almoço';
+                        if(!isHeadless) atualizarVisualAgente(w);
+                    }
+                    return;
+                } else if (w.status === 'Almoço') w.status = 'Ocioso'; 
+
+                if (w.status === 'Ocioso' || w.postoAlvo === null) {
+                    const postoLivre = postosTrabalho.find(p => !p.completo && !p.sendoTrabalhado);
+                    if (postoLivre) { w.postoAlvo = postoLivre.id; w.status = 'Trabalhando'; postoLivre.sendoTrabalhado = true; if(!isHeadless) atualizarVisualAgente(w); }
+                }
+
+                if (w.status === 'Trabalhando' && w.postoAlvo !== null) {
+                    const posto = postosTrabalho[w.postoAlvo - 1];
+                    posto.progresso += (deltaSegundos / tempoPadraoSegundosUnidade) * 100;
+
+                    if (posto.progresso >= 100) {
+                        posto.progresso = 100; posto.completo = true; posto.sendoTrabalhado = false;
+                        totalProduzido++; w.postoAlvo = null; w.status = 'Ocioso';
+                        
+                        const horaIndex = Math.min(Math.floor((tempoFabricaSegundos - 27000) / 3600), 10);
+                        if(horaIndex >= 0 && horaIndex <= 10) dadosProducaoHora[horaIndex]++;
+                        
+                        verificarFimDeProducao(isHeadless); 
+                        if(!isHeadless) {
+                            atualizarKpisReal();
+                            if(!document.getElementById('tab-graficos').classList.contains('hidden') && chartTendencia) atualizarGraficosDashboard();
+                        }
+                    }
+                    
+                    if(!isHeadless && document.getElementById(`ui-posto-bar-${posto.id}`)) {
+                        document.getElementById(`ui-posto-bar-${posto.id}`).style.width = posto.progresso + '%';
+                        const uiPostoBox = document.getElementById(`ui-posto-${posto.id}`);
+                        if (posto.completo) uiPostoBox.className = "posto-transicao bg-emerald-950/40 border-emerald-500 rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner border";
+                        else if (posto.progresso > 0) uiPostoBox.className = "posto-transicao bg-sky-950/30 border-sky-500/60 rounded p-1.5 flex flex-col justify-between relative overflow-hidden h-16 shadow-inner border";
+                    }
+                }
+            });
+        }
+
+        function executarSimulacaoInstantanea() {
+            resetarSimulador(true); // Reset silencioso sem travar a UI
+            
+            // Simula o turno inteiro (36.000 segundos) com saltos lógicos de 5 em 5 segundos para performance
+            while (tempoFabricaSegundos < fimTurnoSegundos) {
+                passoSimulacaoLogica(5, true); 
+            }
+
+            // Ao terminar a matemática fantasma, cospe tudo na tela de uma vez só
+            document.getElementById('btn-play').innerText = 'Fim de Turno';
+            document.getElementById('btn-play').className = "bg-slate-600 text-slate-400 font-bold px-4 py-2 rounded text-sm cursor-not-allowed";
+            
+            renderizarLayoutPlanta();
+            
+            // Força a atualização visual dos trabalhadores onde eles pararam
+            document.getElementById('area-almoco').innerHTML = '';
+            colaboradores.forEach(w => atualizarVisualAgente(w));
+            
+            atualizarRelogioUI();
+            atualizarKpisReal();
+            
+            if(!document.getElementById('tab-graficos').classList.contains('hidden')) {
+                atualizarGraficosDashboard();
+            }
+        }
+
+        function atualizarVisualAgente(worker) {
+            document.querySelectorAll(`.worker-id-${worker.id}`).forEach(el => el.remove());
+            if (worker.status === 'Almoço') {
+                const areaAlmoco = document.getElementById('area-almoco');
+                const dot = document.createElement('div');
+                dot.className = `worker-dot ${worker.cor} text-slate-900 text-[10px] font-bold px-1.5 py-0.5 rounded shadow-md worker-id-${worker.id}`;
+                dot.innerText = worker.sigla; dot.title = worker.nome;
+                areaAlmoco.appendChild(dot);
+            } else if (worker.status === 'Trabalhando' && worker.postoAlvo !== null) {
+                const containerAlvo = document.getElementById(`ui-posto-workers-${worker.postoAlvo}`);
+                if (containerAlvo) {
+                    const dot = document.createElement('div');
+                    dot.className = `worker-dot ${worker.cor} w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-black text-slate-950 shadow-md worker-id-${worker.id}`;
+                    dot.innerText = worker.sigla; dot.title = worker.nome;
+                    containerAlvo.appendChild(dot);
+                }
+            }
+        }
+
+        window.abrirModalSalvar = function() {
+            document.getElementById('modal-salvar').classList.remove('hidden');
+            document.getElementById('input-nome-sim').value = `Simulação ${simulacoesSalvas.length + 1}`;
+            document.getElementById('input-nome-sim').focus();
+        };
+
+        window.fecharModal = function() { document.getElementById('modal-salvar').classList.add('hidden'); };
+
+        window.confirmarSalvar = function() {
+            const nome = document.getElementById('input-nome-sim').value || `Simulação ${simulacoesSalvas.length + 1}`;
+            const kpis = calcularTempoNormalTotal();
+            const equipValor = parseFloat(document.getElementById('sel-equipamento').value);
+            const equipNome = document.getElementById('sel-equipamento').options[document.getElementById('sel-equipamento').selectedIndex].text;
+            
+            let temposSalvos = [];
+            dbTarefasPSS.forEach((t, idx) => {
+                temposSalvos.push({
+                    nome: t.idStr === 'Outros' ? 'Outras Op.' : `Etapa ${t.idStr}`,
+                    tempo: parseInt(document.getElementById(`input-task-${idx}`).value)
+                });
+            });
+
+            const horasDecorridas = ((tempoFabricaSegundos - 27000) / 3600) || 0;
+
+            const snapshot = {
+                id: Date.now().toString(),
+                nome: nome,
+                workers: totalWorkers,
+                capDia: kpis.capDia,
+                equipValor: equipValor,
+                equipNome: equipNome,
+                totalProduzido: totalProduzido,
+                dadosHora: [...dadosProducaoHora],
+                tempos: temposSalvos,
+                custoMo: horasDecorridas * totalWorkers * CUSTO_HORA_HOMEM,
+                fat: totalProduzido * equipValor
+            };
+
+            simulacoesSalvas.push(snapshot);
+            atualizarDropdownsComparacao();
+            fecharModal();
+            alert(`Cenário "${nome}" salvo com sucesso!`);
+        };
+
+        function atualizarDropdownsComparacao() {
+            const sel1 = document.getElementById('sel-cenario-1');
+            const sel2 = document.getElementById('sel-cenario-2');
+            
+            const val1 = sel1.value;
+            const val2 = sel2.value;
+
+            sel1.innerHTML = `<option value="current">Simulação Atual (Ao Vivo / Não Salva)</option>`;
+            sel2.innerHTML = `<option value="none">Nenhuma (Apenas visualizar Cenário Principal)</option>`;
+            
+            simulacoesSalvas.forEach(sim => {
+                sel1.innerHTML += `<option value="${sim.id}">${sim.nome}</option>`;
+                sel2.innerHTML += `<option value="${sim.id}">${sim.nome}</option>`;
+            });
+
+            if([...sel1.options].some(o => o.value === val1)) sel1.value = val1;
+            if([...sel2.options].some(o => o.value === val2)) sel2.value = val2;
+            
+            if(!document.getElementById('tab-graficos').classList.contains('hidden')) atualizarGraficosDashboard();
+        }
+
+        function coletarDadosCenario(id) {
+            if (id === 'current') {
+                const kpis = calcularTempoNormalTotal();
+                const equipValor = parseFloat(document.getElementById('sel-equipamento').value);
+                const equipNome = document.getElementById('sel-equipamento').options[document.getElementById('sel-equipamento').selectedIndex].text;
+                
+                let tempos = dbTarefasPSS.map((t, idx) => ({
+                    nome: t.idStr === 'Outros' ? 'Outras Op.' : `Etapa ${t.idStr}`,
+                    tempo: parseInt(document.getElementById(`input-task-${idx}`).value)
+                }));
+                const horasDecorridas = ((tempoFabricaSegundos - 27000) / 3600) || 0;
+                return {
+                    nome: "Ao Vivo", workers: totalWorkers, capDia: kpis.capDia, equipValor: equipValor, equipNome: equipNome,
+                    totalProduzido: totalProduzido, dadosHora: [...dadosProducaoHora], tempos: tempos,
+                    custoMo: horasDecorridas * totalWorkers * CUSTO_HORA_HOMEM,
+                    fat: totalProduzido * equipValor
+                };
+            } else {
+                return simulacoesSalvas.find(s => s.id === id);
+            }
+        }
+
+        function formatPercent(value) { return `${value > 0 ? '+' : ''}${value.toFixed(1)}%`; }
+
+        window.atualizarGraficosDashboard = function() {
+            const ctxTrend = document.getElementById('chart-tendencia').getContext('2d');
+            const ctxGargalos = document.getElementById('chart-gargalos').getContext('2d');
+            
+            const id1 = document.getElementById('sel-cenario-1').value;
+            const id2 = document.getElementById('sel-cenario-2').value;
+            
+            const cen1 = coletarDadosCenario(id1);
+            const cen2 = id2 !== 'none' ? coletarDadosCenario(id2) : null;
+
+            // 1. DADOS CURVA CUMULATIVA
+            const labelsHoras = ['07:30', '08:30', '09:30', '10:30', '11:30', '12:30', '13:30', '14:30', '15:30', '16:30', '17:30'];
+            let datasetsTrend = [];
+            
+            let acc1 = 0;
+            const real1 = cen1.dadosHora.map(u => { acc1 += u; return acc1; });
+            const meta1 = Array(11).fill(0).map((_, idx) => Math.round((idx / 10) * cen1.capDia));
+            datasetsTrend.push({ label: `${cen1.nome} (Real)`, data: real1, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.1)', tension: 0.2, fill: true });
+            datasetsTrend.push({ label: `${cen1.nome} (Meta)`, data: meta1, borderColor: '#0284c7', borderDash: [5, 5], tension: 0, fill: false });
+
+            if (cen2) {
+                let acc2 = 0;
+                const real2 = cen2.dadosHora.map(u => { acc2 += u; return acc2; });
+                const meta2 = Array(11).fill(0).map((_, idx) => Math.round((idx / 10) * cen2.capDia));
+                datasetsTrend.push({ label: `${cen2.nome} (Real)`, data: real2, borderColor: '#fbbf24', backgroundColor: 'rgba(251, 191, 36, 0.1)', tension: 0.2, fill: true });
+                datasetsTrend.push({ label: `${cen2.nome} (Meta)`, data: meta2, borderColor: '#b45309', borderDash: [5, 5], tension: 0, fill: false });
+            }
+
+            if (chartTendencia) { chartTendencia.data.datasets = datasetsTrend; chartTendencia.update(); } 
+            else {
+                chartTendencia = new Chart(ctxTrend, { type: 'line', data: { labels: labelsHoras, datasets: datasetsTrend }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Curva Cumulativa de Produção', color: '#f1f5f9' }, legend: { labels: { color: '#94a3b8' } } }, scales: { x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } } } });
+            }
+
+            // 2. DADOS PARETO (GARGALOS)
+            let top5Cen1 = [...cen1.tempos].sort((a, b) => b.tempo - a.tempo).slice(0, 5);
+            let labelsPareto = top5Cen1.map(t => t.nome);
+            let datasetsPareto = [{ label: cen1.nome, data: top5Cen1.map(t => t.tempo), backgroundColor: '#38bdf8' }];
+
+            if (cen2) {
+                let dataCen2 = labelsPareto.map(nome => { let achado = cen2.tempos.find(t => t.nome === nome); return achado ? achado.tempo : 0; });
+                datasetsPareto.push({ label: cen2.nome, data: dataCen2, backgroundColor: '#fbbf24' });
+            }
+            
+            if(chartGargalos) { chartGargalos.data.labels = labelsPareto; chartGargalos.data.datasets = datasetsPareto; chartGargalos.update(); } 
+            else {
+                chartGargalos = new Chart(ctxGargalos, { type: 'bar', data: { labels: labelsPareto, datasets: datasetsPareto }, options: { responsive: true, maintainAspectRatio: false, plugins: { title: { display: true, text: 'Comparativo Top 5 Gargalos (Segundos)', color: '#f1f5f9' }, legend: { labels: { color: '#94a3b8' } } }, scales: { x: { ticks: { color: '#94a3b8', font: {size: 10} }, grid: { display: false } }, y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } } } } });
+            }
+
+            // 3. FINANCEIRO
+            const finContainer = document.getElementById('fin-container');
+            if (cen2) {
+                const diffCusto = cen2.custoMo - cen1.custoMo;
+                const percCusto = cen1.custoMo > 0 ? (diffCusto / cen1.custoMo) * 100 : 0;
+                
+                const diffFat = cen2.fat - cen1.fat;
+                const percFat = cen1.fat > 0 ? (diffFat / cen1.fat) * 100 : (cen2.fat > 0 ? 100 : 0);
+                
+                const diffProd = cen2.totalProduzido - cen1.totalProduzido;
+                const percProd = cen1.totalProduzido > 0 ? (diffProd / cen1.totalProduzido) * 100 : 0;
+
+                finContainer.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2 text-xs">
+                        <span class="text-slate-400 font-bold w-1/4">Indicador</span>
+                        <span class="text-sky-400 font-bold w-1/4 text-center">${cen1.nome}</span>
+                        <span class="text-amber-400 font-bold w-1/4 text-center">${cen2.nome}</span>
+                        <span class="text-slate-300 font-bold w-1/4 text-right">Variação (%)</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2 text-xs">
+                        <span class="text-slate-400 w-1/4">Vol. Produzido</span>
+                        <span class="text-slate-300 w-1/4 text-center">${cen1.totalProduzido} un</span>
+                        <span class="text-slate-300 w-1/4 text-center">${cen2.totalProduzido} un</span>
+                        <span class="w-1/4 text-right font-mono font-bold ${percProd >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${formatPercent(percProd)}</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2 text-xs">
+                        <span class="text-slate-400 w-1/4">Custo Total M.O.</span>
+                        <span class="text-slate-300 w-1/4 text-center">R$ ${cen1.custoMo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                        <span class="text-slate-300 w-1/4 text-center">R$ ${cen2.custoMo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                        <span class="w-1/4 text-right font-mono font-bold ${percCusto <= 0 ? 'text-emerald-400' : 'text-rose-400'}">${formatPercent(percCusto)}</span>
+                    </div>
+                    <div class="flex justify-between items-center pb-2 text-xs">
+                        <span class="text-slate-400 w-1/4">Valor Total Prod.</span>
+                        <span class="text-slate-300 w-1/4 text-center">R$ ${cen1.fat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                        <span class="text-slate-300 w-1/4 text-center">R$ ${cen2.fat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                        <span class="w-1/4 text-right font-mono font-bold ${percFat >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${formatPercent(percFat)}</span>
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-slate-700 flex justify-between items-center text-xs p-2 rounded ${diffFat >= 0 ? 'bg-emerald-900/30 border border-emerald-800/50' : 'bg-rose-900/30 border border-rose-800/50'}">
+                        <strong class="${diffFat >= 0 ? 'text-emerald-400' : 'text-rose-400'}">Impacto Financeiro Final (Diferença em R$):</strong>
+                        <span class="font-mono font-bold text-sm ${diffFat >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${diffFat > 0 ? '+' : ''} R$ ${diffFat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                    </div>
+                `;
+            } else {
+                finContainer.innerHTML = `
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2 text-xs">
+                        <span class="text-slate-400">Equipamento Simulado:</span>
+                        <span class="text-slate-300 font-bold max-w-[200px] truncate" title="${cen1.equipNome}">${cen1.equipNome}</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-2 mb-2">
+                        <span class="text-xs text-slate-400">Custo Total Mão de Obra (Acumulado):</span>
+                        <span class="text-sm font-mono font-bold text-rose-400">R$ ${cen1.custoMo.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs text-slate-400">Valor Total Produzido (Acumulado):</span>
+                        <span class="text-sm font-mono font-bold text-emerald-400">R$ ${cen1.fat.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                    </div>
+                `;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            inicializarPainelTarefas();
+            resetarSimulador();
+            atualizarDropdownsComparacao();
+        });
+    </script>
+</body>
+</html>                    <span id="txt-relogio" class="text-2xl font-mono font-bold text-emerald-400">07:30</span>
+                </div>
+                <div class="h-8 w-[1px] bg-slate-700"></div>
+                <div class="flex items-center gap-2 flex-wrap justify-end">
+                    <button id="btn-play" onclick="alternarSimulacao()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded text-sm transition shadow-md cursor-pointer">Iniciar</button>
+                    <button onclick="resetarSimulador()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-3 py-2 rounded text-sm transition border border-slate-600 cursor-pointer">Reset</button>
+                    <button onclick="abrirModalSalvar()" class="bg-sky-600 hover:bg-sky-500 text-white font-bold px-3 py-2 rounded text-sm transition shadow-md cursor-pointer border border-sky-500">Salvar Cenário</button>
+                    <select id="sel-velocidade" onchange="mudarVelocidade()" class="bg-slate-900 border border-slate-700 rounded p-1.5 text-sm text-slate-200 font-mono focus:outline-none focus:border-sky-500">
+                        <option value="5">Vel. 5x</option>
+                        <option value="20" selected>Vel. 20x</option>
+                        <option value="60">Vel. 60x</option>
+                        <option value="200">Vel. 200x</option>
+                        <option value="1000">Vel. 1000x</option>
+                        <option value="instant" class="bg-emerald-900 text-emerald-400 font-bold">⚡ Instantâneo</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <!-- ABAS DE NAVEGAÇÃO -->
+        <div class="flex gap-2 border-b border-slate-800 mb-6">
+            <button id="btn-tab-sim" onclick="mudarAba('tab-simulador')" class="px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40">Simulador Visual</button>
+            <button id="btn-tab-grf" onclick="mudarAba('tab-graficos')" class="px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200">Dashboard & Gráficos</button>
+        </div>
+
+        <!-- CONTEÚDO: ABA 1 (SIMULADOR VISUAL) -->
+        <div id="tab-simulador" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-xl flex flex-col h-[520px]">
+                    
+                    <div class="mb-4 border-b border-slate-700/50 pb-4">
+                        <label class="text-xs font-bold text-sky-400 uppercase tracking-wider block mb-1">Equipamento Simulado</label>
+                        <select id="sel-equipamento" onchange="sincronizarParametrosGlobais()" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm text-slate-200 focus:outline-none focus:border-sky-500">
+                            <option value="510.78">GER VAPOR CL I 06 KW 220V BIF</option>
+                            <option value="530.03">GER VAPOR CL I 09 KW 220V BIF</option>
+                            <option value="615.33">GER VAPOR CL I 12 KW 220V BIF</option>
+                            <option value="621.94">GER VAPOR CL I 15 KW 220V TRIF</option>
+                            <option value="640.48">GER VAPOR CL I 18 KW 220V TRIF</option>
+                            <option value="743.14">GER VAPOR CL I 24 KW 220V TRIF</option>
+                            <option value="814.57">GER VAPOR CL I 27 KW 220V TRIF</option>
+                        </select>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-700/50">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider">Tempos de Processo (PSS)</h3>
+                        <button onclick="restaurarCronoanalise()" class="text-xs text-sky-400 hover:underline font-medium cursor-pointer">Restaurar Baseline</button>
+                    </div>
+                    <div id="lista-tarefas" class="flex-1 overflow-y-auto pr-2 space-y-4 custom-scrollbar"></div>
+                    
+                    <div class="pt-4 mt-2 border-t border-slate-700/50">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300 font-semibold text-emerald-400">Dimensão da Equipe (M.O. Direta)</span>
+                            <span id="lbl-workers" class="font-mono text-emerald-400 font-bold">6 op.</span>
+                        </div>
+                        <input type="range" id="param-workers" min="2" max="12" value="6" oninput="sincronizarParametrosGlobais()" class="w-full h-1.5 bg-slate-700 rounded-lg appearance-none accent-emerald-500 cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                <!-- PAINEL DE KPIs -->
+                <div class="bg-slate-800/80 p-4 rounded-xl border border-slate-700 shadow-xl">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700/60 text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Tempo Padrão Calc.</span>
+                            <span id="kpi-tp" class="text-lg font-bold text-slate-200">38.50 min</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700/60 text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Capacidade Máx. Dia</span>
+                            <span id="kpi-cap-dia" class="text-lg font-bold text-sky-400">84 un/dia</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700/60 text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Unidades Produzidas</span>
+                            <span id="kpi-prod-real" class="text-lg font-bold text-emerald-400">0 un</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700/60 text-center">
+                            <span class="text-[10px] text-slate-400 block uppercase font-bold">Lotes Fechados (50)</span>
+                            <span id="kpi-producoes" class="text-lg font-bold text-amber-400">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GÊMEO DIGITAL -->
+                <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700 shadow-xl flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <h3 class="text-sm font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Layout de Posição Fixa - Abastecimento Contínuo
+                            </h3>
+                            <div class="flex gap-3 text-xs text-slate-400 hidden sm:flex">
+                                <div class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-slate-700 border border-slate-600 block"></span> Vazio</div>
+                                <div class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-sky-500/20 border border-sky-500/50 block"></span> Em Processo</div>
+                                <div class="flex items-center gap-1"><span class="w-3 h-3 rounded bg-emerald-500/20 border border-emerald-500/60 block"></span> Finalizado</div>
+                            </div>
+                        </div>
+                        <div id="grid-layout-fabrica" class="grid grid-cols-5 sm:grid-cols-10 gap-2.5 bg-slate-900 p-4 rounded-xl border border-slate-800 min-h-[300px]"></div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <div class="bg-slate-900/90 px-4 py-3 rounded-lg border border-slate-800 flex items-center gap-4 w-full sm:w-auto">
+                            <div>
+                                <span class="text-xs font-bold text-amber-400 uppercase tracking-wider block">Revezamento de Almoço</span>
+                                <span class="text-[11px] text-slate-500">Turmas escalonadas (12h e 13h)</span>
+                            </div>
+                            <div id="area-almoco" class="flex gap-1.5 bg-slate-800 p-1.5 rounded border border-slate-700 min-w-[120px] min-h-[36px] items-center justify-center"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTEÚDO: ABA 2 (DASHBOARD & COMPARAÇÃO) -->
+        <div id="tab-graficos" class="hidden flex flex-col gap-6">
+            <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 shadow-xl flex flex-col md:flex-row gap-4 items-end">
+                <div class="flex-1 w-full">
+                    <label class="text-xs text-slate-400 block mb-1 font-bold uppercase">Cenário Principal</label>
+                    <select id="sel-cenario-1" onchange="atualizarGraficosDashboard()" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm text-sky-400 font-bold focus:outline-none">
+                        <option value="current">Simulação Atual (Ao Vivo / Não Salva)</option>
+                    </select>
+                </div>
+                <div class="flex-1 w-full">
+                    <label class="text-xs text-slate-400 block mb-1 font-bold uppercase">Comparar Com</label>
+                    <select id="sel-cenario-2" onchange="atualizarGraficosDashboard()" class="w-full bg-slate-900 border border-slate-600 rounded p-2 text-sm text-amber-400 font-bold focus:outline-none">
+                        <option value="none">Nenhuma (Apenas visualizar Cenário Principal)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Gráfico de Tendência -->
+                <div class="md:col-span-7 bg-slate-800 p-5 rounded-xl border border-slate-700 shadow-xl">
+                    <div class="h-[400px] w-full relative">
+                        <canvas id="chart-tendencia"></canvas>
+                    </div>
+                </div>
+                
+                <!-- Gráfico de Gargalos e Finanças -->
+                <div class="md:col-span-5 bg-slate-800 p-5 rounded-xl border border-slate-700 shadow-xl flex flex-col gap-4">
+                    <div class="h-[200px] w-full relative">
+                        <canvas id="chart-gargalos"></canvas>
+                    </div>
+                    
+                    <div class="bg-slate-900/60 p-4 rounded-lg border border-slate-700 mt-auto">
+                        <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-2">
+                            Resumo Financeiro Consolidado
+                        </h4>
+                        <div id="fin-container" class="space-y-2">
+                            <!-- Injetado dinamicamente via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE SALVAR SIMULAÇÃO -->
+    <div id="modal-salvar" class="hidden fixed inset-0 bg-slate-950/80 z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-800 p-6 rounded-xl border border-slate-700 w-full max-w-md shadow-2xl">
+            <h3 class="text-lg font-bold text-sky-400 mb-2 border-b border-slate-700 pb-2">Salvar Resultado da Simulação</h3>
+            <p class="text-xs text-slate-400 mb-4">Dê um nome claro para identificar este cenário nas comparações futuras.</p>
+            <input type="text" id="input-nome-sim" class="w-full bg-slate-900 border border-slate-600 rounded p-2.5 text-slate-200 mb-4 focus:border-sky-500 focus:outline-none placeholder-slate-600" placeholder="Nome do Cenário...">
+            <div class="flex justify-end gap-3">
+                <button onclick="fecharModal()" class="px-4 py-2 rounded text-slate-300 hover:bg-slate-700 transition">Cancelar</button>
+                <button onclick="confirmarSalvar()" class="px-4 py-2 rounded bg-sky-600 hover:bg-sky-500 text-white font-bold transition shadow">Salvar Cenário</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // BASE DE DADOS DO PSS
+        const dbTarefasPSS = [
             { idStr: '1', desc: 'Leitura da OS e separação inicial', tempoDefault: 15, max: 60 },
             { idStr: '2', desc: 'Posicionar chassi na bancada', tempoDefault: 10, max: 60 },
             { idStr: '3', desc: 'Parafusar pés de borracha', tempoDefault: 12, max: 60 },
