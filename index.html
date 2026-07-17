@@ -259,6 +259,42 @@
         ];
 
         // CONSTANTES FINANCEIRAS OCULTAS
+        const CUSTO_HORA_HOMEM = 17.18; 
+
+        // VARIÁVEIS DE ESTADO
+        let simInterval = null;
+        let isRunning = false;
+        let velocidadeSimulacao = 20; 
+        let tempoFabricaSegundos = 27000; 
+        const fimTurnoSegundos = 63000;    
+        
+        let tempoNormalCalculado = 2063;
+        let totalWorkers = 6;
+        let producaoAtual = 0; 
+        let totalProduzido = 0;
+        let dadosProducaoHora = Array(11).fill(0);
+        
+        let postosTrabalho = [];
+        let colaboradores = [];
+
+        let simulacoesSalvas = [];
+        let chartTendencia = null;
+        let chartGargalos = null;
+
+        window.mudarAba = function(idAba) {
+            document.getElementById('tab-simulador').classList.add('hidden');
+            document.getElementById('tab-graficos').classList.add('hidden');
+            
+            document.getElementById('btn-tab-sim').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+            document.getElementById('btn-tab-grf').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200";
+
+            document.getElementById(idAba).classList.remove('hidden');
+            
+            if(idAba === 'tab-simulador') {
+                document.getElementById('btn-tab-sim').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40";
+            } else {
+                document.getElementById('btn-tab-grf').className = "px-5 py-2.5 font-semibold text-sm rounded-t-lg transition-all border-b-2 border-sky-400 text-sky-400 bg-slate-800/40";
+                atualizarGraficosDashboard();
             }
         };
 
